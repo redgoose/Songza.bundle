@@ -1,6 +1,6 @@
-# plex-songza
+# Songza.bundle
 
-Songza music plugin for Plex
+Songza music plugin for Plex Media Server
 
 ## Notes
 
