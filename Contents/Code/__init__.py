@@ -28,7 +28,12 @@ def Start():
 def MainMenu():
     oc = ObjectContainer()
     oc.add(DirectoryObject(key=Callback(SituationsList), title=L('Music Concierge')))
+    oc.add(DirectoryObject(key = Callback(Popular), title = L('Popular')))
     return oc
+
+@route("/music/songza/popular")
+def Popular():
+    pass
 
 @route("/music/songza/situations")
 def SituationsList():
