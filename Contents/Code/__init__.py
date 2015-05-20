@@ -33,6 +33,15 @@ def MainMenu():
 
 @route("/music/songza/browse")
 def Browse():
+    url = SONGZA_API + 'tags'
+    tags = JSON.ObjectFromURL(url)
+    oc = ObjectContainer(title2 = L('Browse by...'))
+    for t in tags:
+        oc.add(DirectoryObject(key = Callback(TagList, tag = t['slug']), title = t['name']))
+    return oc
+
+@route("music/songza/browse/{tag}")
+def TagList(tag):
     pass
 
 @route("/music/songza/situations")
