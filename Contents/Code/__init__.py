@@ -42,7 +42,13 @@ def Browse():
 
 @route("music/songza/browse/{tag}")
 def TagList(tag):
-    pass
+    url = SONGZA_API + 'gallery/tag/' + tag
+    options = JSON.ObjectFromURL(url)
+    oc = ObjectContainer(title2 = L('Choose from ' + tag))
+    for o in options:
+        oc.add(DirectoryObject(key = Callback(StationList, station_ids = o['station_ids']),
+                                 title = o['name']))
+    return oc
 
 @route("/music/songza/situations")
 def SituationsList():
