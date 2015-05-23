@@ -28,6 +28,26 @@ def Start():
 def MainMenu():
     oc = ObjectContainer()
     oc.add(DirectoryObject(key=Callback(SituationsList), title=L('Music Concierge')))
+    oc.add(DirectoryObject(key = Callback(Browse), title = L('Browse')))
+    return oc
+
+@route("/music/songza/browse")
+def Browse():
+    url = SONGZA_API + 'tags'
+    tags = JSON.ObjectFromURL(url)
+    oc = ObjectContainer(title2 = L('Browse by...'))
+    for t in tags:
+        oc.add(DirectoryObject(key = Callback(TagList, tag = t['slug']), title = t['name']))
+    return oc
+
+@route("music/songza/browse/{tag}")
+def TagList(tag):
+    url = SONGZA_API + 'gallery/tag/' + tag
+    options = JSON.ObjectFromURL(url)
+    oc = ObjectContainer(title2 = L('Choose from ' + tag))
+    for o in options:
+        oc.add(DirectoryObject(key = Callback(StationList, station_ids = o['station_ids']),
+                                 title = o['name']))
     return oc
 
 @route("/music/songza/situations")
